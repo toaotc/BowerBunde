@@ -2,7 +2,7 @@
 
 namespace Toa\Bundle\BowerBundle\Composer;
 
-use Composer\Script\CommandEvent;
+use Composer\Script\Event;
 use Sensio\Bundle\DistributionBundle\Composer\ScriptHandler as BaseScriptHandler;
 
 /**
@@ -13,13 +13,12 @@ use Sensio\Bundle\DistributionBundle\Composer\ScriptHandler as BaseScriptHandler
 class ScriptHandler extends BaseScriptHandler
 {
     /**
-     * @param CommandEvent $event CommandEvent A instance
+     * @param Event $event
      */
-    public static function installBowerComponents(CommandEvent $event)
+    public static function installBowerComponents(Event $event)
     {
-        $options = self::getOptions($event);
-        $appDir = $options['symfony-app-dir'];
+        $consoleDir = static::getConsoleDir($event, 'install bower components');
 
-        static::executeCommand($event, $appDir, 'toa:bower:components:install');
+        static::executeCommand($event, $consoleDir, 'toa:bower:components:install');
     }
 }
